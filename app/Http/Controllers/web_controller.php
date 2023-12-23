@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Customer;
+use App\Models\Cardetails;
 use Illuminate\Support\Facades\Hash;
 
 class web_controller extends Controller
@@ -66,4 +67,67 @@ class web_controller extends Controller
         }
         return view('login');
     }   
+
+
+
+    // this function is to store car details to databse
+
+    public function uploaddt(Request $request){
+        
+        
+
+        
+        
+        
+// //         this is to save the  of image
+//         $cardetails=new Cardetails;
+//         $cardetails->car_name=$request['car_name'];
+//         $cardetails->car_model=$request['car_model'];
+//         $cardetails->car_price=$request['car_price'];
+//         $cardetails->car_city=$request['car_city'];
+//         $cardetails->contact=$request['contact'];
+        
+//         // if ($request->hasFile('car_image')) {
+//             $imagePath = $request->file('car_image')->store('uploads');
+//             // Rest of your code
+//             $cardetails->car_image=$imagePath;
+//         // }
+
+//         $cardetails->save();
+
+//         return view('home');
+
+
+
+
+// GPT CODE
+            // $request->validate([
+            //     'car_name' => 'required',
+            //     'car_model' => 'required',
+            //     'car_price' => 'required',
+            //     'car_city' => 'nullable',
+            //     'contact' => 'required',
+            //     'car_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            // ]);
+
+            // Create a new CarDetails instance
+            $cardetails = new Cardetails;
+            $cardetails->car_name = $request->input('car_name');
+            $cardetails->car_model = $request->input('car_model');
+            $cardetails->car_price = $request->input('car_price');
+            $cardetails->car_city = $request->input('car_city');
+            $cardetails->contact = $request->input('contact_no');
+           
+            if ($request->hasFile('car_image')) {
+                $imagePath = $request->file('car_image')->store('uploads');
+                $cardetails->car_image = $imagePath;
+            }
+            
+            // Save the CarDetails instance to the database
+            $cardetails->save();
+
+            return view('home');
+
+
+    }
 }

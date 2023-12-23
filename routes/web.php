@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\web_controller;
 use App\Models\Customer;
+use App\Models\Cardetails;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,3 +62,14 @@ Route::get('/logout',function(){
     }
     return redirect('/login');
 });
+
+
+
+// Route::get('/check',function(){
+//     return view('carDetails');
+// });
+Route::get('/car',function(){
+    return view('carDetails');
+});
+
+Route::post('/uploaddt',[web_controller::class,'uploaddt'])->name('uploaddt');
