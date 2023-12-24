@@ -21,7 +21,7 @@ class web_controller extends Controller
         echo "<pre>";
         // this is to store the data from signup page to customer table
         
-        print_r($request->all());
+        // print_r($request->all());
 
         $customer=new Customer;
         $customer->cust_name=$request['name'];
@@ -33,7 +33,7 @@ class web_controller extends Controller
         $customer->save();
 
 
-        // return redirect('/data/view');
+         return redirect('/login');
 
     }
 
@@ -51,6 +51,9 @@ class web_controller extends Controller
 
     public function auth(Request $request){
         $data=Customer::all();
+
+        // $dat=Cardetails::all();
+        // $val=compact('dat');
 
         $name=$request['username'];
         $password=$request['password'];
@@ -73,61 +76,69 @@ class web_controller extends Controller
     // this function is to store car details to databse
 
     public function uploaddt(Request $request){
-        
-        
+        // dd($request->all());
 
-        
-        
-        
-// //         this is to save the  of image
-//         $cardetails=new Cardetails;
-//         $cardetails->car_name=$request['car_name'];
-//         $cardetails->car_model=$request['car_model'];
-//         $cardetails->car_price=$request['car_price'];
-//         $cardetails->car_city=$request['car_city'];
-//         $cardetails->contact=$request['contact'];
-        
-//         // if ($request->hasFile('car_image')) {
-//             $imagePath = $request->file('car_image')->store('uploads');
-//             // Rest of your code
-//             $cardetails->car_image=$imagePath;
-//         // }
-
-//         $cardetails->save();
-
-//         return view('home');
-
-
-
-
-// GPT CODE
-            // $request->validate([
-            //     'car_name' => 'required',
-            //     'car_model' => 'required',
-            //     'car_price' => 'required',
-            //     'car_city' => 'nullable',
-            //     'contact' => 'required',
-            //     'car_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            // ]);
-
-            // Create a new CarDetails instance
-            $cardetails = new Cardetails;
-            $cardetails->car_name = $request->input('car_name');
-            $cardetails->car_model = $request->input('car_model');
-            $cardetails->car_price = $request->input('car_price');
-            $cardetails->car_city = $request->input('car_city');
-            $cardetails->contact = $request->input('contact_no');
-           
-            if ($request->hasFile('car_image')) {
-                $imagePath = $request->file('car_image')->store('uploads');
-                $cardetails->car_image = $imagePath;
-            }
+            if (session()->has('username')){
+                # code...
             
-            // Save the CarDetails instance to the database
-            $cardetails->save();
+                // Create a new CarDetails instance
+                $cardetails = new Cardetails;
+                $cardetails->car_name = $request->input('car_name');
+                $cardetails->car_model = $request->input('car_model');
+                $cardetails->car_price = $request->input('car_price');
+                $cardetails->car_city = $request->input('car_city');
+                $cardetails->contact = $request->input('contact_no');
+                
 
-            return view('home');
+                // $imagePath='';
+                // if ($request->hasFile('car_image')) {
+                //     $imagePath = $request->getSchemeAndHttpHost() . '/assets/img' . time() . '.' . $request->car_image->extension();
+                //     $request->car_image->move(public_path('assets/img'),$imagePath);
+                // }
+                // $cardetails->car_image=$imagePath;
+
+
+                // hkjjhjkhkjhkhjk
+                $imagePath = '';
+        if ($request->hasFile('car_image')) {
+            $imageName = time() . '.' . $request->car_image->extension();
+            $imagePath = '/assets/img/' . $imageName;
+            $request->car_image->move(public_path('assets/img'), $imageName);
+        }
+
+        $cardetails->car_image = $imagePath;
+                    // fakjsdflksajdflka
+
+
+
+
+                    
+                // Save the CarDetails instance to the database
+                $cardetails->save();
+
+                return view('home');
+            }else {
+            return view('signup');
+            }
 
 
     }
+
+
+    // this function is to display databse data into buy blade template
+    public function getbuydata(Request $request){
+        $data=Cardetails::all();
+        $val=compact('data');
+
+        if (session()->has('username')) {
+            return view('buy')->with($val);
+        }
+        return view('login');
+    }
+
+
+
 }
+
+
+

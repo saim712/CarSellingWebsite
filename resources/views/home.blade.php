@@ -4,23 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vehicle Marketplace</title>
-    <!-- <link rel="stylesheet" href="./CSS/styles.css" /> -->
+    
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
   </head>
 
   <body>
+
     <header>
       <h1>Vehicle Marketplace</h1>
       <nav>
         <ul>
             
-          <li><a href="/home.html">Home</a></li>
-          <li><a href="#">Buy</a></li>
-          <li><a href="#">Sell</a></li>
-          <li><a href="#">Contact</a></li>
+          <!-- <li><a href="/home.html">Home</a></li> -->
+          <li><a href="/buy/data">Buy</a></li>
+          <li><a href="/sell">Sell</a></li>
+          <li><a href="/">about us</a></li>
           <li><a href="/reg">Sign Up</a></li>
           <li><a href="/login">Sign In</a></li>
           <li><a href="/logout">logout</a></li>
+          <li><a href="/sell">POST AN AD</a></li>
         </ul>
       </nav>
     </header>
@@ -33,20 +35,21 @@
       </form>
     </section>
 
-    <!-- <h2>My Account</h2>
-        <section class="my-account">
-            <p>Welcome, [Username]! </p>
-            <p>Your email: [user@example.com]</p>
-            <button>Edit Account</button>
-            <button>Log Out</button>
-        </section> -->
+   
+
+        
+      
+       
+
+
 
     <h2>Featured Listings</h2>
     <section class="featured-listings">
       <div class="vehicle-listing">
-        <img src="image/BMW.jpeg" alt="BMW" />
+      
+        
         <h3>BMW</h3>
-        <p>Year: 2008 | Mileage: 500 miles | Price: 80,00000</p>
+        
         <button>Show Details</button>
       </div>
 
@@ -85,6 +88,13 @@
         <button>Show Details</button>
       </div>
     </section>
+
+
+
+
+
+
+
 
     <section>
       <div class="container">
@@ -593,3 +603,15 @@
     <script src="./Javascript/script.js"></script>
   </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
